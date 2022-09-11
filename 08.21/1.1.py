@@ -1,8 +1,9 @@
 from random import choice
 
 # 1)
-suit1 = ['Бубны', 'Пики', 'Черви', 'Крести']
+suit = ['Бубны', 'Пики', 'Черви', 'Крести']
 
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 loc1 = []
 iter_list = iter(loc1)
@@ -15,10 +16,17 @@ iter_list = iter(list)
 # КОММЕНТАРИЙ: это рабочий вариант, но можно лучше: найдите в документации встроенную функцию enumerate(), изучите, как она работает, и перепишите этот цикл, используя enumerate()
 for j in suit:
 >>>>>>> 187bc5b01de411c524db76327d2544f21a631ae5
+=======
+
+list = []
+iter_list = iter(list)
+for j in suit:
+>>>>>>> Stashed changes
     for i in range(1, 14):
-        loc1.append([i, count])
+        list.append([i, j])
         print(iter_list.__next__())
 
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 # Я попробовал сделать через enumerate, но код был слишком громосткий и не особо отличался от прошлого
 
@@ -64,3 +72,8 @@ print(choice(list))
 
 # ДОБАВИТЬ: вторую задачу из задания 2 — функцию для проверки можно использовать любую
 >>>>>>> 187bc5b01de411c524db76327d2544f21a631ae5
+=======
+# 2)
+
+print(choice(list))
+>>>>>>> Stashed changes
