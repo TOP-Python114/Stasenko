@@ -5,7 +5,10 @@ class HTMLElement:
         self.name = name
         self.value = value
         self.elements: list['HTMLElement'] = []
-        self.kwargs = ''.join([f' {name}='{value}'' for name, value in kwargs.items()])
+        self.kwargs = ''.join(
+            [f' {name}="{value}"'
+             for name, value in kwargs.items()]
+        )
 
     def __str__(self):
         return self.__str()

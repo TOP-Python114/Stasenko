@@ -1,7 +1,5 @@
-
 class HTMLElement:
     default_indent_size = 5
-
 
     def __init__(self, name: str, value: str = '', **kwargs):
         self.name = name
@@ -9,10 +7,8 @@ class HTMLElement:
         self.elements: list['HTMLElement'] = []
         self.kwargs = ''.join([f' {name}="{value}"' for name, value in kwargs.items()])
 
-
     def __str__(self):
         return self.__str()
-
 
     def __str(self, indent_lvl: int = 0):
         indent = ' ' * indent_lvl * self.__class__.default_indent_size
@@ -33,20 +29,17 @@ class HTMLBuilder:
         elif isinstance(root, HTMLElement):
             self.__root = root
 
-
     def add_child(self, name: str, value: str = '', **kwargs):
         self.__root.elements += [
             el := HTMLElement(name, value, **kwargs)
         ]
         return HTMLBuilder(el)
 
-
     def add_sibling(self, name: str, value: str = '', **kwargs):
         self.__root.elements += [
             HTMLElement(name, value, **kwargs)
         ]
         return self
-
 
     def __str__(self):
         return str(self.__root)
@@ -62,21 +55,17 @@ class CVBuilder:
         self.education: str = ''
         self.projects: list[dict] = []
 
-
     def add_education(self, *education: str | int):
         self.education = ', '.join(map(str, education))
         return self
-
 
     def add_project(self, *project):
         self.projects += [project]
         return self
 
-
     def add_contact(self, **contact):
         self.contacts += [contact]
         return self
-
 
     def build(self):
         self.html = HTMLBuilder('html')
@@ -98,16 +87,19 @@ class CVBuilder:
         for contact in self.contacts:
             self.temp3.add_sibling('p', f'{contact}'[1:-1])
 
-
         return self.html
 
 
 
-cv1 = CVBuilder('Миронов Ярослав Алексеевич', 17, 'Киберспортсмен', email='yarik@loh.gg') \
-    .add_education('Ставропольский Строительный Техникум', 'Газовщик', f'Дата поступления: {2020} учебный год')\
-    .add_contact(telegram='@yarikgg')\
-    .add_project('Статистика', 'https://fortnitetracker.com/profile/all/LIL%20MANGOL')\
-    .add_project('Twitch аккаунт', 'https://www.twitch.tv/yyaattii')\
-    .build()
+cv1 = CVBuilder('Миронов Ярослав Алексеевич', 17, 'Киберспортсмен', email='yarik@loh.gg')
+cv1.add_education('Ставропольский Строительный Техникум',
+                  'Газовщик',
+                  f'Дата поступления: {2020} учебный год')\
+   .add_contact(telegram='@yarikgg')\
+   .add_project('Статистика',
+                'https://fortnitetracker.com/profile/all/LIL%20MANGOL')\
+   .add_project('Twitch аккаунт',
+                'https://www.twitch.tv/yyaattii')\
+   .build()
 
 print(cv1)
