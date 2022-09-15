@@ -61,3 +61,21 @@ body.add_lines("nick", 'Toose')\
     .add_lines("age", 20)\
     .add_lines("signed", False)
 print(body)
+
+# stdout:
+# class CyberSport:
+# 	pass
+#
+#
+# class CyberSport:
+# 	def __init__(self, nick: str, age: int, country: str):
+# 		self.nick = Malibuca
+# 		self.age = 17
+# 		self.country = Serbia
+#
+#
+# class CyberSport:
+# 	def __init__(self, nick: str, age: int, signed: bool):
+# 		self.nick = Toose
+# 		self.age = 20
+# 		self.signed = False
