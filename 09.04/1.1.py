@@ -19,35 +19,31 @@ class ClassBuilder:
     def __str__(self):
         if not self.lines:
             # ИСПРАВИТЬ: ключевое слово class пишется в нижнем регистре
-            return f"Class {self.class_name}:\n\tpass"
+            return f'class {self.class_name}:\n\tpass'
 
         # ИСПРАВИТЬ: имена функций в Python мы пишем в нижнем регистре, разделяя слова в имени символом подчёркивания — это называется змеиный_нижний_регистр (snake_lower_case)
         # ИСПРАВИТЬ: как имя meaning ("значение") соотносится с назначением этой функции (возврат имени класса)?
-        # ДОБАВИТЬ: строку документации для функции
-        def Meaning(line):
-            # ИСПОЛЬЗОВАТЬ: а ещё можно так:
-            # return type(line).__name__
-            if type(line) == int:
-                return 'int'
-            if type(line) == str:
-                return 'str'
-            if type(line) == bool:
-                return 'bool'
+        # я имел ввиду, что эта функция определяет значение аргумента, который в него передаётся(слово, цифра или буллевое значение)
 
-        s_line = ", ".join(
+        # ДОБАВИТЬ: строку документации для функции
+        def meaning(line):
+            # ИСПОЛЬЗОВАТЬ: а ещё можно так:
+            return type(line).__name__
+
+        s_line = ', '.join(
             # ДОБАВИТЬ: значения по умолчанию для ваших атрибутов
-            line[0] + f': {Meaning(line[1])}'
+            line[0] + f': {meaning(line[1])}'
             for line in self.lines
         )
         finished_lines = '\n\t\t'.join(
             # ИСПРАВИТЬ: преобразовывать в список не нужно, метод join() принимает и генераторные выражения тоже
-            [f"self.{line[0]} = " + str(line[1])
-             for line in self.lines]
+             f'self.{line[0]} = ' + str(line[1])
+             for line in self.lines
         )
         # ИСПРАВИТЬ: ключевое слово class пишется в нижнем регистре
-        return f"Class {self.class_name}:\n" \
-               f"\tdef __init__(self, {s_line}):\n" \
-               f"\t\t{finished_lines}"
+        return f'class {self.class_name}:\n' \
+               f'\tdef __init__(self, {s_line}):\n' \
+               f'\t\t{finished_lines}'
 
 
 body = ClassBuilder("CyberSport")
