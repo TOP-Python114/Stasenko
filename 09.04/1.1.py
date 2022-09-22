@@ -36,16 +36,18 @@ class ClassBuilder:
         def meaning(line):
             # ИСПОЛЬЗОВАТЬ: а ещё можно так:
             return type(line).__name__
-
+        
+        # КОММЕНТАРИЙ: что касается того, как вы в принципе формируете эти строки выводимого кода — если в нём вы прописываете значения по умолчанию непосредственно в атрибуты (как сейчас), то тогда параметры в конструктор передавать вообще не нужно, кроме self, разумеется
         s_line = ', '.join(
             # ДОБАВИТЬ: значения по умолчанию для ваших атрибутов
+            # КОММЕНТАРИЙ: а если всё-таки прописываете параметры для конструктора, то и значения по умолчанию должны быть прописаны для параметров — в заголовке метода конструктора
             line[0] + f': {meaning(line[1])}'
             for line in self.lines
         )
         finished_lines = '\n\t\t'.join(
-            # ИСПРАВИТЬ: преобразовывать в список не нужно, метод join() принимает и генераторные выражения тоже
-             f'self.{line[0]} = ' + str(line[1])
-             for line in self.lines
+            # КОММЕНТАРИЙ: и в качестве значений для атрибутов выводимого класса прописываются уже локальные переменные параметров
+            f'self.{line[0]} = ' + str(line[1])
+            for line in self.lines
         )
         # ИСПРАВИТЬ: ключевое слово class пишется в нижнем регистре
         return f'class {self.class_name}:\n' \
@@ -69,20 +71,6 @@ body.comp_lines("nick", 'Toose')\
     .comp_lines("signed", False)
 print(body)
 
-# stdout:
-# class CyberSport:
-# 	pass
-#
-#
-# class CyberSport:
-# 	def __init__(self, nick: str, age: int, country: str):
-# 		self.nick = Malibuca
-# 		self.age = 17
-# 		self.country = Serbia
-#
-#
-# class CyberSport:
-# 	def __init__(self, nick: str, age: int, signed: bool):
-# 		self.nick = Toose
-# 		self.age = 20
-# 		self.signed = False
+
+# ИТОГ: ничего критичного, но много моментов на которые необходимо обратить внимание — 5/8
+
