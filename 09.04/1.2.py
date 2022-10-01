@@ -3,6 +3,7 @@ class HTMLElement:
 
     def __init__(self, name: str, value: str = '', **kwargs):
         self.name = name
+        # ДОБАВИТЬ: аннотацию типа для атрибута
         self.attributes = ''.join([
             f' {n}="{v}"'
             for n, v in kwargs.items()
@@ -65,3 +66,6 @@ print(body)
 
 # ДОБАВИТЬ: результаты выполнения скрипта в закомментированном виде под меткой stdout
 # stdout:
+
+
+# ИТОГ: хорошо — 4/4
