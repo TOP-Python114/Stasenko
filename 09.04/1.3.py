@@ -3,16 +3,16 @@ class HTMLElement:
 
     def __init__(self, name: str, value: str = '', **kwargs):
         self.name = name
+        self.attributes = ''.join([f' {name}="{value}"' for name, value in kwargs.items()])
         self.value = value
         self.elements: list['HTMLElement'] = []
-        self.kwargs = ''.join([f' {name}="{value}"' for name, value in kwargs.items()])
 
     def __str__(self):
         return self.__str()
 
     def __str(self, indent_lvl: int = 0):
         indent = ' ' * indent_lvl * self.__class__.default_indent_size
-        ret = f'{indent}<{self.name}{self.kwargs}>{self.value}'
+        ret = f'{indent}<{self.name}{self.attributes}>{self.value}'
         if self.elements:
             for element in self.elements:
                 ret += '\n' + element.__str(indent_lvl+1)
@@ -46,7 +46,12 @@ class HTMLBuilder:
 
 
 class CVBuilder:
-    def __init__(self, full_name: str, age: int, occupation: str, portfolio: list[str] = None, **contacts):
+    def __init__(self,
+                 full_name: str,
+                 age: int,
+                 occupation: str,
+                 portfolio: list[str] = None,
+                 **contacts):
         self.full_name = full_name
         self.age = age
         self.portfolio = portfolio
@@ -72,18 +77,19 @@ class CVBuilder:
         self.head = self.html.add_child('head').add_sibling('title', f'Портфолио: {self.full_name}')
         self.body = self.html.add_child('body')
         self.about = self.body.add_child('div', id='About')
-        self.temp1 = self.about.add_child('div', id='Main_information').add_sibling('h1', 'Обо мне')\
-            .add_sibling('p', f'{self.age} лет  Род деятельности: {self.occupation}')
+        self.temp1 = self.about.add_child('div', id='Main_information')\
+                .add_sibling('h1', 'Обо мне')\
+                .add_sibling('p', f'{self.age} лет  Род деятельности: {self.occupation}')
 
         if self.education:
             self.temp1.add_sibling('p', f'Образование: {self.education}')
         if self.projects:
             for project in self.projects:
-                self.temp2 = self.about.add_child('div', f'{project[0]}:', id = 'Lincs')
+                self.temp2 = self.about.add_child('div', f'{project[0]}:', id='Links')
                 for link in project[1:]:
                     self.temp2.add_child('p', src=link)
 
-        self.temp3 = self.about.add_child('div', id = 'Contacts')
+        self.temp3 = self.about.add_child('div', id='Contacts')
         for contact in self.contacts:
             self.temp3.add_sibling('p', f'{contact}'[1:-1])
 
@@ -103,3 +109,7 @@ cv1.add_education('Ставропольский Строительный Тех�
    .build()
 
 print(cv1)
+
+
+# ДОБАВИТЬ: результаты выполнения скрипта в закомментированном виде под меткой stdout
+# stdout:
