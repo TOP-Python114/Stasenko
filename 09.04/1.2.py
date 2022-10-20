@@ -3,19 +3,20 @@ class HTMLElement:
 
     def __init__(self, name: str, value: str = '', **kwargs):
         self.name = name
+        # ДОБАВИТЬ: аннотацию типа для атрибута
+        self.attributes = ''.join([
+            f' {n}="{v}"'
+            for n, v in kwargs.items()
+        ])
         self.value = value
         self.elements: list['HTMLElement'] = []
-        self.kwargs = ''.join(
-            [f' {name}="{value}"'
-             for name, value in kwargs.items()]
-        )
 
     def __str__(self):
         return self.__str()
 
     def __str(self, indent_lvl: int = 0):
         indent = ' ' * indent_lvl * self.__class__.default_indent_size
-        ret = f'{indent}<{self.name}{self.kwargs}>{self.value}'
+        ret = f'{indent}<{self.name}{self.attributes}>{self.value}'
         if self.elements:
             for element in self.elements:
                 ret += '\n' + element.__str(indent_lvl+1)
@@ -48,16 +49,6 @@ class HTMLBuilder:
         return str(self.__root)
 
 
-# ручное создание элементов и связей между ними
-# li1 = HTMLElement('li', 'элемент 1')
-# li2 = HTMLElement('li', 'элемент 2')
-# ul = HTMLElement('ul')
-# ul.elements += [li1, li2]
-# div = HTMLElement('div')
-# div.elements += [ul]
-# print(div)
-
-# использование строителя
 body = HTMLBuilder('body', style='background-color:red')
 menu = body.add_child('div', id='div').add_child('ul')
 menu.add_child('li', 'File')\
@@ -71,3 +62,10 @@ menu.add_child('li', 'Edit')\
     .add_sibling('p', 'Copy')\
     .add_sibling('p', 'Paste')
 print(body)
+
+
+# ДОБАВИТЬ: результаты выполнения скрипта в закомментированном виде под меткой stdout
+# stdout:
+
+
+# ИТОГ: хорошо — 4/4

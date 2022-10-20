@@ -4,11 +4,13 @@ import re
 def sort(elem):
     return elem[1]
 
+# УДАЛИТЬ: этот объект почему в пространстве имён модуля оказался? он должен быть в пространстве имён класса
 sorted_words = []
 
 
+# ДОБАВИТЬ: документацию класса
 class Processor:
-
+    # ДОБАВИТЬ: документацию метода
     def process_text(self, text):
         for word in sorted(WordCounter(text).get_all_words().items(), key=sort):
             sorted_words.append(word[0])
@@ -27,6 +29,7 @@ class TextParser:
 
     def get_processed_text(self, processor) -> None:
         """Вызывает метод класса обработчика.
+
         :param processor: экземпляр класса обработчика
         """
         result = processor.process_text(self.text)
@@ -50,9 +53,10 @@ class WordCounter:
         return self.__words.copy()
 
 
-sort_text = TextParser \
-(" %$# жаба огурец помидор помидор %?№ жаба жаба жаба №(;*%№; огурец лампа *%;№: лампа лампа ") \
-.get_processed_text(Processor())
+# ИСПРАВИТЬ: в переменную sort_text запишется None, потому что метод get_processed_text() не возвращает ничего
+sort_text = TextParser(
+    " %$# жаба огурец помидор помидор %?№ жаба жаба жаба №(;*%№; огурец лампа *%;№: лампа лампа "
+).get_processed_text(Processor())
 
 
 # stdout:
@@ -60,3 +64,6 @@ sort_text = TextParser \
 # помидор
 # лампа
 # жаба
+
+
+# ИТОГ: интересно, насколько хорошо вы понимаете, что делаете — 10/12
