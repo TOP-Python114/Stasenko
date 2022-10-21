@@ -69,10 +69,13 @@ class MagicSquareGenerator:
             self.res = [self.gen.generate(self.w) for _ in range(self.w)]
             if self.ver.verify(self.sp.split(self.res)):
                 return self.res
-
+            
 gen = MagicSquareGenerator(3)
 
-fs = gen.generate()
-
-for _ in fs:
+for _ in gen.generate():
     print(*_)
+
+# stdout:
+# 8 3 7
+# 5 6 7
+# 5 9 4
